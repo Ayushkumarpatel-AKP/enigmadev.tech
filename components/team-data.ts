@@ -20,7 +20,7 @@ export const TEAM: Member[] = [
     tags: ['Full-Stack', 'Hardware', 'ISL Glove', '3× Hackathon Winner'],
     tracks: ['Full-Stack', 'Hardware'],
     initials: 'AP',
-    photo: '',
+    photo: '/images/team/ayush.png',
   },
   {
     name: 'Shreyansh Upadhyay',
@@ -40,7 +40,7 @@ export const TEAM: Member[] = [
     tags: ['Backend', 'Hardware', 'Finance'],
     tracks: ['Backend', 'Hardware'],
     initials: 'TP',
-    photo: '',
+    photo: '/images/team/prashant.png',
   },
   {
     name: 'Suraj Jangde',
@@ -50,7 +50,7 @@ export const TEAM: Member[] = [
     tags: ['Hardware', 'Embedded', 'MSME Selected'],
     tracks: ['Hardware'],
     initials: 'SJ',
-    photo: '',
+    photo: '/images/team/suraj.png',
   },
   {
     name: 'Vaibhav Sharma',
@@ -60,6 +60,6 @@ export const TEAM: Member[] = [
     tags: ['Full-Stack', 'Hardware', 'MANAK Awardee'],
     tracks: ['Full-Stack', 'Hardware'],
     initials: 'VS',
-    photo: '',
+    photo: '/images/team/vaibhav.png',
   },
 ];
