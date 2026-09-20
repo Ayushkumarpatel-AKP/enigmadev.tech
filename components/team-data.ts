@@ -30,7 +30,7 @@ export const TEAM: Member[] = [
     tags: ['Backend', 'Research', 'Operations'],
     tracks: ['Backend'],
     initials: 'SU',
-    photo: '',
+    photo: '/images/team/shreyansh.png',
   },
   {
     name: 'T. Prashant',
