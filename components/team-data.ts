@@ -9,6 +9,7 @@ export type Member = {
   tracks: string[];
   initials: string;
   photo?: string;
+  links?: { linkedin?: string; github?: string };
 };
 
 export const TEAM: Member[] = [
@@ -21,9 +22,10 @@ export const TEAM: Member[] = [
     tracks: ['Full-Stack', 'Hardware'],
     initials: 'AP',
     photo: '/images/team/ayush.png',
+    links: { linkedin: 'https://www.linkedin.com/in/ayush-kumar-patel-50276a281/', github: 'https://github.com/Ayushkumarpatel-AKP' },
   },
   {
-    name: 'Shreyansh Upadhyay',
+    name: 'Shriyansh Upadhyay',
     title: 'Co-Founder & COO',
     role: 'Backend Developer',
     bio: 'Backend developer who writes research papers, not just APIs. Runs operations and keeps ambitious builds shippable.',
@@ -31,6 +33,7 @@ export const TEAM: Member[] = [
     tracks: ['Backend'],
     initials: 'SU',
     photo: '/images/team/shreyansh.png',
+    links: { linkedin: 'https://www.linkedin.com/in/shriyansh-upadhyay-a89b37344/', github: 'https://github.com/cse-ai-shriyansh' },
   },
   {
     name: 'T. Prashant',
@@ -41,6 +44,7 @@ export const TEAM: Member[] = [
     tracks: ['Backend', 'Hardware'],
     initials: 'TP',
     photo: '/images/team/prashant.png',
+    links: { linkedin: 'https://www.linkedin.com/in/t-prashant-b59160334', github: 'https://github.com/prashant847' },
   },
   {
     name: 'Suraj Jangde',
@@ -51,6 +55,7 @@ export const TEAM: Member[] = [
     tracks: ['Hardware'],
     initials: 'SJ',
     photo: '/images/team/suraj.png',
+    links: { linkedin: 'https://www.linkedin.com/in/-surajjangde/' },
   },
   {
     name: 'Vaibhav Sharma',
@@ -61,5 +66,6 @@ export const TEAM: Member[] = [
     tracks: ['Full-Stack', 'Hardware'],
     initials: 'VS',
     photo: '/images/team/vaibhav.png',
+    links: { linkedin: 'https://www.linkedin.com/in/vaibhav-sharma0230/', github: 'https://github.com/Vaibhav9526' },
   },
 ];

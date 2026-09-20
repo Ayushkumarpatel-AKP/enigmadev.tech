@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, ChevronLeft, ChevronRight, Github, Linkedin } from 'lucide-react';
 import { TEAM, type Member } from '@/components/team-data';
 
 /* TEAM data ab @/components/team-data me hai — wahi edit karo (homepage preview bhi wahi se aata hai) */
@@ -80,6 +80,35 @@ function Card({ m, i }: { m: Member; i: number }) {
             </span>
           ))}
         </div>
+        {(m.links?.linkedin || m.links?.github) && (
+          <div className="mt-4 flex items-center gap-2">
+            <span className="eyebrow mr-1">Connect</span>
+            {m.links?.linkedin && (
+              <a
+                href={m.links.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${m.name} on LinkedIn`}
+                onPointerDown={(e) => e.stopPropagation()}
+                className="flex h-9 w-9 items-center justify-center border hairline text-white/65 transition duration-300 hover:border-[#d2fa75] hover:bg-[#d2fa75] hover:text-black"
+              >
+                <Linkedin size={15} />
+              </a>
+            )}
+            {m.links?.github && (
+              <a
+                href={m.links.github}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${m.name} on GitHub`}
+                onPointerDown={(e) => e.stopPropagation()}
+                className="flex h-9 w-9 items-center justify-center border hairline text-white/65 transition duration-300 hover:border-[#d2fa75] hover:bg-[#d2fa75] hover:text-black"
+              >
+                <Github size={15} />
+              </a>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="h-[2px] w-full origin-left scale-x-0 bg-[#d2fa75] transition-transform duration-500 group-hover:scale-x-100" aria-hidden="true" />
