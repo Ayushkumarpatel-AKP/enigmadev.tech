@@ -55,7 +55,7 @@ export const TEAM: Member[] = [
     tracks: ['Hardware'],
     initials: 'SJ',
     photo: '/images/team/suraj.png',
-    links: { linkedin: 'https://www.linkedin.com/in/-surajjangde/' },
+    links: { linkedin: 'https://www.linkedin.com/in/-surajjangde/', github: 'https://github.com/wintereason' },
   },
   {
     name: 'Vaibhav Sharma',
