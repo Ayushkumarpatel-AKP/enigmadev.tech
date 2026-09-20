@@ -90,7 +90,7 @@ function Card({ m, i }: { m: Member; i: number }) {
                 rel="noreferrer"
                 aria-label={`${m.name} on LinkedIn`}
                 onPointerDown={(e) => e.stopPropagation()}
-                className="flex h-9 w-9 items-center justify-center border hairline text-white/65 transition duration-300 hover:border-[#d2fa75] hover:bg-[#d2fa75] hover:text-black"
+                className="flex h-9 w-9 items-center justify-center border border-white/35 bg-white/[.06] text-white transition duration-300 hover:border-[#d2fa75] hover:bg-[#d2fa75] hover:text-black"
               >
                 <Linkedin size={15} />
               </a>
@@ -102,7 +102,7 @@ function Card({ m, i }: { m: Member; i: number }) {
                 rel="noreferrer"
                 aria-label={`${m.name} on GitHub`}
                 onPointerDown={(e) => e.stopPropagation()}
-                className="flex h-9 w-9 items-center justify-center border hairline text-white/65 transition duration-300 hover:border-[#d2fa75] hover:bg-[#d2fa75] hover:text-black"
+                className="flex h-9 w-9 items-center justify-center border border-white/35 bg-white/[.06] text-white transition duration-300 hover:border-[#d2fa75] hover:bg-[#d2fa75] hover:text-black"
               >
                 <Github size={15} />
               </a>
