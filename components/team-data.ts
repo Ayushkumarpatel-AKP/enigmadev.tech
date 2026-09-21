@@ -11,6 +11,7 @@ export type Member = {
   photo?: string;
   pos?: string;
   fit?: 'cover' | 'contain';
+  zoom?: number;
   links?: { linkedin?: string; github?: string };
 };
 
@@ -26,6 +27,7 @@ export const TEAM: Member[] = [
     photo: '/images/team/ayush.jpg',
     pos: '50% 12%',
     fit: 'contain',
+    zoom: 1.22,
     links: { linkedin: 'https://www.linkedin.com/in/ayush-kumar-patel-50276a281/', github: 'https://github.com/Ayushkumarpatel-AKP' },
   },
   {

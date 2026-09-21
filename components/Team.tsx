@@ -17,7 +17,7 @@ function Cover({ m }: { m: Member }) {
         src={m.photo}
         alt={`${m.name} photo`}
         className={`absolute inset-0 h-full w-full saturate-[.7] contrast-[1.05] transition duration-700 group-hover:scale-[1.06] group-hover:saturate-100 ${m.fit === 'contain' ? 'object-contain bg-[#0b0b0b]' : 'object-cover'}`}
-        style={{ objectPosition: m.pos ?? '50% 50%' }}
+        style={{ objectPosition: m.pos ?? '50% 50%', transform: m.zoom ? `scale(${m.zoom})` : undefined }}
         draggable={false}
       />
     );
