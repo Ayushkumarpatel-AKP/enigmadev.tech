@@ -16,7 +16,8 @@ function Cover({ m }: { m: Member }) {
       <img
         src={m.photo}
         alt={`${m.name} photo`}
-        className="absolute inset-0 h-full w-full object-cover saturate-[.7] contrast-[1.05] transition duration-700 group-hover:scale-[1.06] group-hover:saturate-100"
+        className={`absolute inset-0 h-full w-full saturate-[.7] contrast-[1.05] transition duration-700 group-hover:scale-[1.06] group-hover:saturate-100 ${m.fit === 'contain' ? 'object-contain bg-[#0b0b0b]' : 'object-cover'}`}
+        style={{ objectPosition: m.pos ?? '50% 50%' }}
         draggable={false}
       />
     );
@@ -56,7 +57,7 @@ function Card({ m, i }: { m: Member; i: number }) {
       <div className="relative z-10 -mt-8 ml-5 h-16 w-16 overflow-hidden rounded-full border border-white/25 bg-[#161614] transition duration-500 group-hover:border-[#d2fa75]">
         {m.photo ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={m.photo} alt={`${m.name} photo`} className="h-full w-full object-cover saturate-[.8]" draggable={false} />
+          <img src={m.photo} alt={`${m.name} photo`} className="h-full w-full object-cover saturate-[.8]" style={{ objectPosition: m.pos ?? '50% 50%' }} draggable={false} />
         ) : (
           <span className="flex h-full w-full items-center justify-center text-lg font-medium tracking-[-.02em] text-white/85 transition duration-500 group-hover:text-[#d2fa75]">
             {m.initials}

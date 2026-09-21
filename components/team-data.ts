@@ -9,6 +9,8 @@ export type Member = {
   tracks: string[];
   initials: string;
   photo?: string;
+  pos?: string;
+  fit?: 'cover' | 'contain';
   links?: { linkedin?: string; github?: string };
 };
 
@@ -22,6 +24,8 @@ export const TEAM: Member[] = [
     tracks: ['Full-Stack', 'Hardware'],
     initials: 'AP',
     photo: '/images/team/ayush.jpg',
+    pos: '50% 12%',
+    fit: 'contain',
     links: { linkedin: 'https://www.linkedin.com/in/ayush-kumar-patel-50276a281/', github: 'https://github.com/Ayushkumarpatel-AKP' },
   },
   {
