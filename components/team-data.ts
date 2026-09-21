@@ -72,6 +72,7 @@ export const TEAM: Member[] = [
     tracks: ['Full-Stack', 'Hardware'],
     initials: 'VS',
     photo: '/images/team/vaibhav.png',
+    zoom: 1.15,
     links: { linkedin: 'https://www.linkedin.com/in/vaibhav-sharma0230/', github: 'https://github.com/Vaibhav9526' },
   },
 ];
