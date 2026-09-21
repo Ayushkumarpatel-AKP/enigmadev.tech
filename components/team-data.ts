@@ -24,7 +24,7 @@ export const TEAM: Member[] = [
     tags: ['Full-Stack', 'Hardware', 'ISL Glove', '3× Hackathon Winner'],
     tracks: ['Full-Stack', 'Hardware'],
     initials: 'AP',
-    photo: '/images/team/ayush.jpg',
+    photo: '/images/team/ayush-new.jpg',
     pos: '50% 12%',
     fit: 'contain',
     zoom: 1.35,
