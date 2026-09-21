@@ -21,7 +21,7 @@ export const TEAM: Member[] = [
     tags: ['Full-Stack', 'Hardware', 'ISL Glove', '3× Hackathon Winner'],
     tracks: ['Full-Stack', 'Hardware'],
     initials: 'AP',
-    photo: '/images/team/ayush.png',
+    photo: '/images/team/ayush.jpg',
     links: { linkedin: 'https://www.linkedin.com/in/ayush-kumar-patel-50276a281/', github: 'https://github.com/Ayushkumarpatel-AKP' },
   },
   {
