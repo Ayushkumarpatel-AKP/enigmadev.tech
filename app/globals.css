@@ -68,6 +68,26 @@ html.has-electric-cursor input, html.has-electric-cursor textarea, html.has-elec
 .world-panel:hover .world-glow { opacity:.32; }
 .about-glow { position:absolute; top:-18%; right:-12%; width:62vw; height:62vw; max-width:900px; max-height:900px; border-radius:50%; background:radial-gradient(circle, rgba(210,250,117,.18), transparent 62%); filter:blur(40px); pointer-events:none; }
 .page-glow { position:absolute; top:-15%; left:50%; transform:translateX(-50%); width:70vw; height:45vw; max-width:1000px; max-height:620px; border-radius:50%; background:radial-gradient(circle, rgba(210,250,117,.12), transparent 65%); filter:blur(60px); pointer-events:none; }
+/* selected-work cards — cursor spotlight, subtle tilt, focus dimming */
+.project-card { position:relative; transform:perspective(1000px) translateY(var(--lift,0px)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--s,1)); transition:transform .4s cubic-bezier(.2,.7,.2,1), opacity .5s ease, filter .5s ease, border-color .5s ease, box-shadow .5s ease; will-change:transform; }
+.project-card:hover { --lift:-6px; --s:1.012; border-color:rgba(var(--spot),.55); box-shadow:0 30px 70px -34px rgba(var(--spot),.55); }
+.project-spot { position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0; transition:opacity .45s ease; background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%), rgba(var(--spot),.18), transparent 62%); }
+.project-card:hover .project-spot { opacity:1; }
+@media (hover:hover) {
+  .work-grid:where(:has(.project-card:hover)) .project-card { opacity:.4; filter:blur(2px) saturate(.5); }
+  .work-grid .project-card:hover { opacity:1; filter:none; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .project-card { transform:none; }
+  .work-grid:where(:has(.project-card:hover)) .project-card { opacity:1; filter:none; }
+}
+/* world pages — animated backdrop mask + travelling pipeline */
+.business-backdrop, .earth-backdrop, .people-backdrop { opacity:.85; -webkit-mask-image:radial-gradient(120% 110% at 50% 45%, #000 38%, transparent 100%); mask-image:radial-gradient(120% 110% at 50% 45%, #000 38%, transparent 100%); }
+.pipeline-line { background-image:linear-gradient(90deg, transparent, rgba(210,250,117,.85), transparent); background-size:35% 100%; background-repeat:no-repeat; animation:pipeline 3.4s linear infinite; }
+.pipeline-earth { background-image:linear-gradient(90deg, transparent, rgba(209,167,123,.85), transparent); }
+.pipeline-people { background-image:linear-gradient(90deg, transparent, rgba(199,182,245,.85), transparent); }
+@keyframes pipeline { from { background-position:-40% 0; } to { background-position:140% 0; } }
+@media (prefers-reduced-motion:reduce) { .pipeline-line { animation:none; background-position:50% 0; } }
 .world-copy { position:relative; z-index:2; height:100%; display:flex; flex-direction:column; justify-content:space-between; padding:clamp(100px,13vh,150px) clamp(22px,5vw,72px) clamp(28px,5vh,58px); }
 .world-title { font-family:var(--font-display, 'Space Grotesk'), var(--font-sans), Arial, Helvetica, sans-serif; font-size:clamp(3.64rem,9.24vw,9.59rem); line-height:.82; letter-spacing:-.055em; font-weight:500; }
 .world-description { max-width:360px; color:rgba(244,243,239,.78); font-size:15px; line-height:1.35; }
