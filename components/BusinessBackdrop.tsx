@@ -26,22 +26,24 @@ export function BusinessBackdrop() {
     let dpr = 1;
     let w = 0;
     let h = 0;
+    let small = false;
     let bars: Bar[] = [];
     let streams: Stream[] = [];
 
     const setup = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       w = window.innerWidth;
       h = window.innerHeight;
+      small = w < 768;
+      dpr = Math.min(window.devicePixelRatio || 1, small ? 1 : 1.5);
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const barCount = Math.max(10, Math.ceil(w / BAR_GAP));
+      const barCount = Math.max(10, Math.ceil(w / (small ? 38 : BAR_GAP)));
       bars = Array.from({ length: barCount }, () => ({ h: rand(0.06, 0.42), target: rand(0.06, 0.6) }));
-      streams = Array.from({ length: 6 }, (_, i) => ({
+      streams = Array.from({ length: small ? 3 : 6 }, (_, i) => ({
         y: (h / 7) * (i + 1),
         speed: rand(0.035, 0.11),
         pos: rand(-w, w),
@@ -56,7 +58,8 @@ export function BusinessBackdrop() {
     let raf = 0;
     let last = performance.now();
 
-    const draw = () => {
+    const draw = (dt: number) => {
+      const k = dt / 16.67;
       ctx.clearRect(0, 0, w, h);
 
       // blueprint grid
@@ -77,7 +80,7 @@ export function BusinessBackdrop() {
       const bw = w / bars.length;
       for (let i = 0; i < bars.length; i++) {
         const b = bars[i];
-        b.h += (b.target - b.h) * 0.03;
+        b.h += (b.target - b.h) * 0.03 * k;
         if (Math.random() < 0.006) b.target = rand(0.06, 0.62);
         const bh = b.h * h * 0.5;
         ctx.fillStyle = `rgba(${BLUE},${0.07 + b.h * 0.26})`;
@@ -87,7 +90,7 @@ export function BusinessBackdrop() {
       // data streams
       ctx.lineWidth = 1.2;
       for (const s of streams) {
-        s.pos += s.speed * 16;
+        s.pos += s.speed * 16 * k;
         if (s.pos - s.len > w) {
           s.pos = -s.len;
           s.y = rand(h * 0.1, h * 0.9);
@@ -131,25 +134,48 @@ export function BusinessBackdrop() {
     };
 
     const frame = (now: number) => {
-      const dt = Math.min(now - last, 40);
+      const elapsed = now - last;
+      if (elapsed < (small ? 32 : 0)) {
+        raf = requestAnimationFrame(frame);
+        return;
+      }
       last = now;
+      const dt = Math.min(elapsed, 40);
       t += dt;
-      draw();
+      draw(dt);
       raf = requestAnimationFrame(frame);
+    };
+
+    const start = () => {
+      if (raf) return;
+      last = performance.now();
+      raf = requestAnimationFrame(frame);
+    };
+
+    const stop = () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+    };
+
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else if (!reduced) start();
     };
 
     setup();
     window.addEventListener('resize', setup);
+    document.addEventListener('visibilitychange', onVisibility);
 
     if (reduced) {
-      draw();
+      draw(16.67);
     } else {
-      raf = requestAnimationFrame(frame);
+      start();
     }
 
     return () => {
-      cancelAnimationFrame(raf);
+      stop();
       window.removeEventListener('resize', setup);
+      document.removeEventListener('visibilitychange', onVisibility);
     };
   }, []);
 

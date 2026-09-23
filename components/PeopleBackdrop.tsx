@@ -17,10 +17,11 @@ export function PeopleBackdrop() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const rand = (a: number, b: number) => a + Math.random() * (b - a);
 
-    const BARS = 72;
+    let BARS = 72;
     let dpr = 1;
     let w = 0;
     let h = 0;
+    let small = false;
     let cx = 0;
     let cy = 0;
     let R = 0;
@@ -28,9 +29,11 @@ export function PeopleBackdrop() {
     let dust: { x: number; y: number; vx: number; vy: number; s: number }[] = [];
 
     const setup = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       w = window.innerWidth;
       h = window.innerHeight;
+      small = w < 768;
+      BARS = small ? 40 : 72;
+      dpr = Math.min(window.devicePixelRatio || 1, small ? 1 : 1.5);
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       canvas.style.width = `${w}px`;
@@ -39,7 +42,7 @@ export function PeopleBackdrop() {
       cx = w * 0.5;
       cy = h * 0.46;
       R = Math.min(w, h) * 0.26;
-      dust = Array.from({ length: 40 }, () => ({
+      dust = Array.from({ length: small ? 16 : 40 }, () => ({
         x: rand(0, w),
         y: rand(0, h),
         vx: rand(-0.14, 0.14),
@@ -137,25 +140,48 @@ export function PeopleBackdrop() {
     };
 
     const frame = (now: number) => {
-      const dt = Math.min(now - last, 40);
+      const elapsed = now - last;
+      if (elapsed < (small ? 32 : 0)) {
+        raf = requestAnimationFrame(frame);
+        return;
+      }
       last = now;
+      const dt = Math.min(elapsed, 40);
       t += dt;
       draw(dt);
       raf = requestAnimationFrame(frame);
     };
 
+    const start = () => {
+      if (raf) return;
+      last = performance.now();
+      raf = requestAnimationFrame(frame);
+    };
+
+    const stop = () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+    };
+
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else if (!reduced) start();
+    };
+
     setup();
     window.addEventListener('resize', setup);
+    document.addEventListener('visibilitychange', onVisibility);
 
     if (reduced) {
       draw(0);
     } else {
-      raf = requestAnimationFrame(frame);
+      start();
     }
 
     return () => {
-      cancelAnimationFrame(raf);
+      stop();
       window.removeEventListener('resize', setup);
+      document.removeEventListener('visibilitychange', onVisibility);
     };
   }, []);
 

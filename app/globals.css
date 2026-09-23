@@ -11,7 +11,7 @@
 }
 
 * { box-sizing:border-box; }
-html { background:var(--ink); }
+html { background:var(--ink); overflow-x:clip; }
 html.lenis, html.lenis body { height:auto; }
 .lenis.lenis-smooth { scroll-behavior:auto !important; }
 body {
@@ -61,19 +61,23 @@ html.has-electric-cursor input, html.has-electric-cursor textarea, html.has-elec
 .world-panel { height:100svh; min-height:620px; position:sticky; top:0; overflow:hidden; }
 .world-panel + .world-panel { margin-top:-1px; }
 .world-image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:saturate(.75) contrast(1.05); transform:scale(1.02); transition:transform 1.4s cubic-bezier(.2,.7,.2,1), filter 1s ease; }
-.world-panel:hover .world-image { transform:scale(1.07); filter:saturate(.95) contrast(1.08); }
+@media (hover:hover) {
+  .world-panel:hover .world-image { transform:scale(1.07); filter:saturate(.95) contrast(1.08); }
+}
 .world-card { position:absolute; inset:0; overflow:hidden; transform-origin:center center; }
 .world-shade { position:absolute; inset:0; z-index:1; background:linear-gradient(180deg,rgba(0,0,0,.45),transparent 35%,rgba(0,0,0,.68)); }
 .world-glow { position:absolute; left:0; right:0; bottom:-25%; height:65%; z-index:0; opacity:0; filter:blur(90px); mix-blend-mode:screen; pointer-events:none; transition:opacity .9s ease; }
-.world-panel:hover .world-glow { opacity:.32; }
+@media (hover:hover) {
+  .world-panel:hover .world-glow { opacity:.32; }
+}
 .about-glow { position:absolute; top:-18%; right:-12%; width:62vw; height:62vw; max-width:900px; max-height:900px; border-radius:50%; background:radial-gradient(circle, rgba(210,250,117,.18), transparent 62%); filter:blur(40px); pointer-events:none; }
 .page-glow { position:absolute; top:-15%; left:50%; transform:translateX(-50%); width:70vw; height:45vw; max-width:1000px; max-height:620px; border-radius:50%; background:radial-gradient(circle, rgba(210,250,117,.12), transparent 65%); filter:blur(60px); pointer-events:none; }
 /* selected-work cards — cursor spotlight, subtle tilt, focus dimming */
 .project-card { position:relative; transform:perspective(1000px) translateY(var(--lift,0px)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--s,1)); transition:transform .4s cubic-bezier(.2,.7,.2,1), opacity .5s ease, filter .5s ease, border-color .5s ease, box-shadow .5s ease; will-change:transform; }
-.project-card:hover { --lift:-6px; --s:1.012; border-color:rgba(var(--spot),.55); box-shadow:0 30px 70px -34px rgba(var(--spot),.55); }
 .project-spot { position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0; transition:opacity .45s ease; background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%), rgba(var(--spot),.18), transparent 62%); }
-.project-card:hover .project-spot { opacity:1; }
 @media (hover:hover) {
+  .project-card:hover { --lift:-6px; --s:1.012; border-color:rgba(var(--spot),.55); box-shadow:0 30px 70px -34px rgba(var(--spot),.55); }
+  .project-card:hover .project-spot { opacity:1; }
   .work-grid:where(:has(.project-card:hover)) .project-card { opacity:.4; filter:blur(2px) saturate(.5); }
   .work-grid .project-card:hover { opacity:1; filter:none; }
 }
@@ -88,6 +92,19 @@ html.has-electric-cursor input, html.has-electric-cursor textarea, html.has-elec
 .pipeline-people { background-image:linear-gradient(90deg, transparent, rgba(199,182,245,.85), transparent); }
 @keyframes pipeline { from { background-position:-40% 0; } to { background-position:140% 0; } }
 @media (prefers-reduced-motion:reduce) { .pipeline-line { animation:none; background-position:50% 0; } }
+/* mobile: notch-safe spacing and lighter rendering */
+.site-nav { padding-top:calc(1.25rem + env(safe-area-inset-top, 0px)); }
+.site-menu { padding-bottom:calc(2rem + env(safe-area-inset-bottom, 0px)); }
+.site-menu::before { content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; background:radial-gradient(130% 65% at 50% -5%, rgba(130,200,255,.22), transparent 62%); }
+.site-menu::after { content:""; position:absolute; left:0; right:0; bottom:0; height:2px; pointer-events:none; background:linear-gradient(90deg, transparent, rgba(130,200,255,.9), transparent); }
+@media (max-width:767px) {
+  .noise { display:none; }
+  .world-glow { display:none; }
+  .about-glow { filter:blur(26px); }
+  .page-glow { filter:blur(32px); }
+  .business-backdrop, .earth-backdrop, .people-backdrop { opacity:.72; }
+  .project-card { will-change:auto; }
+}
 .world-copy { position:relative; z-index:2; height:100%; display:flex; flex-direction:column; justify-content:space-between; padding:clamp(100px,13vh,150px) clamp(22px,5vw,72px) clamp(28px,5vh,58px); }
 .world-title { font-family:var(--font-display, 'Space Grotesk'), var(--font-sans), Arial, Helvetica, sans-serif; font-size:clamp(3.64rem,9.24vw,9.59rem); line-height:.82; letter-spacing:-.055em; font-weight:500; }
 .world-description { max-width:360px; color:rgba(244,243,239,.78); font-size:15px; line-height:1.35; }
@@ -95,7 +112,7 @@ html.has-electric-cursor input, html.has-electric-cursor textarea, html.has-elec
 .world-panel:nth-child(1) .world-image { object-position:center; }
 .world-panel:nth-child(2) .world-image { object-position:center; }
 .world-panel:nth-child(3) .world-image { object-position:center; }
-@media (max-width:700px) { .hero-image { object-position:center; object-fit:fill; transform:scale(1.5, 1.02); background:#000; } .world-panel { min-height:100svh; } .world-copy { padding:95px 20px 26px; } .world-title { font-size:clamp(4rem,18vw,7rem); } .world-bottom { align-items:flex-start; flex-direction:column; } .world-description { max-width:310px; } }
+@media (max-width:700px) { .hero-image { object-position:center; object-fit:cover; background:#000; } .world-panel { min-height:100svh; } .world-copy { padding:95px 20px 26px; } .world-title { font-size:clamp(3.1rem,14vw,7rem); } .world-bottom { align-items:flex-start; flex-direction:column; } .world-description { max-width:310px; } }
 @media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition-duration:.01ms!important; } .world-panel { position:relative; } }
 /* team marquee — right to left, hover par pause */
 .marquee-track { animation:team-marquee 42s linear infinite; }

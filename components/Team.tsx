@@ -91,7 +91,7 @@ function Card({ m, i }: { m: Member; i: number }) {
                 rel="noreferrer"
                 aria-label={`${m.name} on LinkedIn`}
                 onPointerDown={(e) => e.stopPropagation()}
-                className="flex h-9 w-9 items-center justify-center border border-white/35 bg-white/[.06] text-white transition duration-300 hover:border-[#d2fa75] hover:bg-[#d2fa75] hover:text-black"
+                className="flex h-10 w-10 items-center justify-center border border-white/35 bg-white/[.06] text-white transition duration-300 hover:border-[#d2fa75] hover:bg-[#d2fa75] hover:text-black"
               >
                 <Linkedin size={15} />
               </a>
@@ -103,7 +103,7 @@ function Card({ m, i }: { m: Member; i: number }) {
                 rel="noreferrer"
                 aria-label={`${m.name} on GitHub`}
                 onPointerDown={(e) => e.stopPropagation()}
-                className="flex h-9 w-9 items-center justify-center border border-white/35 bg-white/[.06] text-white transition duration-300 hover:border-[#d2fa75] hover:bg-[#d2fa75] hover:text-black"
+                className="flex h-10 w-10 items-center justify-center border border-white/35 bg-white/[.06] text-white transition duration-300 hover:border-[#d2fa75] hover:bg-[#d2fa75] hover:text-black"
               >
                 <Github size={15} />
               </a>
@@ -217,7 +217,7 @@ export function Team() {
               <button
                 key={n}
                 onClick={() => setTab(n)}
-                className={`flex items-center gap-2 border px-4 py-2 text-[11px] uppercase tracking-[.14em] transition duration-300 ${
+                className={`flex items-center gap-2 border px-4 py-2.5 text-[11px] uppercase tracking-[.14em] transition duration-300 ${
                   active
                     ? 'border-[#d2fa75] bg-[#d2fa75] text-black'
                     : 'hairline text-white/60 hover:border-white/40 hover:text-white'
@@ -235,14 +235,14 @@ export function Team() {
             <button
               aria-label="Scroll team left"
               onClick={() => nudge(-1)}
-              className="flex h-9 w-9 items-center justify-center border hairline text-white/70 transition hover:border-[#d2fa75] hover:text-[#d2fa75]"
+              className="flex h-10 w-10 items-center justify-center border hairline text-white/70 transition hover:border-[#d2fa75] hover:text-[#d2fa75]"
             >
               <ChevronLeft size={16} />
             </button>
             <button
               aria-label="Scroll team right"
               onClick={() => nudge(1)}
-              className="flex h-9 w-9 items-center justify-center border hairline text-white/70 transition hover:border-[#d2fa75] hover:text-[#d2fa75]"
+              className="flex h-10 w-10 items-center justify-center border hairline text-white/70 transition hover:border-[#d2fa75] hover:text-[#d2fa75]"
             >
               <ChevronRight size={16} />
             </button>

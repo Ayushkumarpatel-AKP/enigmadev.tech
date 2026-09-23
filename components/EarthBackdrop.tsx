@@ -20,6 +20,8 @@ export function EarthBackdrop() {
     let dpr = 1;
     let w = 0;
     let h = 0;
+    let small = false;
+    let beams = 28;
     let cx = 0;
     let cy = 0;
     let R = 0;
@@ -27,9 +29,11 @@ export function EarthBackdrop() {
     let sats: { rx: number; ry: number; a: number; speed: number; tilt: number }[] = [];
 
     const setup = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       w = window.innerWidth;
       h = window.innerHeight;
+      small = w < 768;
+      beams = small ? 14 : 28;
+      dpr = Math.min(window.devicePixelRatio || 1, small ? 1 : 1.5);
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       canvas.style.width = `${w}px`;
@@ -38,7 +42,7 @@ export function EarthBackdrop() {
       cx = w * 0.5;
       cy = h * 0.52;
       R = Math.min(w, h) * 0.42;
-      sats = Array.from({ length: 3 }, (_, i) => ({
+      sats = Array.from({ length: small ? 2 : 3 }, (_, i) => ({
         rx: R * (0.68 + i * 0.17),
         ry: R * (0.4 + i * 0.11),
         a: rand(0, Math.PI * 2),
@@ -100,9 +104,9 @@ export function EarthBackdrop() {
 
       // radar sweep with trailing edge
       const sweep = (t * 0.0007) % (Math.PI * 2);
-      for (let i = 0; i < 28; i++) {
+      for (let i = 0; i < beams; i++) {
         const a = sweep - i * 0.04;
-        ctx.strokeStyle = `rgba(${WARM},${(1 - i / 28) * 0.3})`;
+        ctx.strokeStyle = `rgba(${WARM},${(1 - i / beams) * 0.3})`;
         ctx.lineWidth = i === 0 ? 1.6 : 1;
         ctx.beginPath();
         ctx.moveTo(cx, cy);
@@ -158,25 +162,48 @@ export function EarthBackdrop() {
     };
 
     const frame = (now: number) => {
-      const dt = Math.min(now - last, 40);
+      const elapsed = now - last;
+      if (elapsed < (small ? 32 : 0)) {
+        raf = requestAnimationFrame(frame);
+        return;
+      }
       last = now;
+      const dt = Math.min(elapsed, 40);
       t += dt;
       draw(dt);
       raf = requestAnimationFrame(frame);
     };
 
+    const start = () => {
+      if (raf) return;
+      last = performance.now();
+      raf = requestAnimationFrame(frame);
+    };
+
+    const stop = () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+    };
+
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else if (!reduced) start();
+    };
+
     setup();
     window.addEventListener('resize', setup);
+    document.addEventListener('visibilitychange', onVisibility);
 
     if (reduced) {
       draw(0);
     } else {
-      raf = requestAnimationFrame(frame);
+      start();
     }
 
     return () => {
-      cancelAnimationFrame(raf);
+      stop();
       window.removeEventListener('resize', setup);
+      document.removeEventListener('visibilitychange', onVisibility);
     };
   }, []);
 
