@@ -27,6 +27,10 @@ a { color:inherit; text-decoration:none; }
 a[href^="mailto:"] { text-transform:lowercase; letter-spacing:normal; }
 ::selection { background:#d2fa75; color:#080808; }
 
+/* electric cursor takes over on fine-pointer devices */
+html.has-electric-cursor, html.has-electric-cursor * { cursor:none !important; }
+html.has-electric-cursor input, html.has-electric-cursor textarea, html.has-electric-cursor select, html.has-electric-cursor [contenteditable="true"] { cursor:text !important; }
+
 ::-webkit-scrollbar { width:10px; height:10px; }
 ::-webkit-scrollbar-track { background:#0b0b0b; }
 ::-webkit-scrollbar-thumb { background:rgba(244,243,239,.16); border:3px solid #0b0b0b; border-radius:999px; }
@@ -58,7 +62,8 @@ a[href^="mailto:"] { text-transform:lowercase; letter-spacing:normal; }
 .world-panel + .world-panel { margin-top:-1px; }
 .world-image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:saturate(.75) contrast(1.05); transform:scale(1.02); transition:transform 1.4s cubic-bezier(.2,.7,.2,1), filter 1s ease; }
 .world-panel:hover .world-image { transform:scale(1.07); filter:saturate(.95) contrast(1.08); }
-.world-panel::after { content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(180deg,rgba(0,0,0,.45),transparent 35%,rgba(0,0,0,.68)); }
+.world-card { position:absolute; inset:0; overflow:hidden; transform-origin:center center; }
+.world-shade { position:absolute; inset:0; z-index:1; background:linear-gradient(180deg,rgba(0,0,0,.45),transparent 35%,rgba(0,0,0,.68)); }
 .world-glow { position:absolute; left:0; right:0; bottom:-25%; height:65%; z-index:0; opacity:0; filter:blur(90px); mix-blend-mode:screen; pointer-events:none; transition:opacity .9s ease; }
 .world-panel:hover .world-glow { opacity:.32; }
 .about-glow { position:absolute; top:-18%; right:-12%; width:62vw; height:62vw; max-width:900px; max-height:900px; border-radius:50%; background:radial-gradient(circle, rgba(210,250,117,.18), transparent 62%); filter:blur(40px); pointer-events:none; }
