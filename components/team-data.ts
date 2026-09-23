@@ -54,7 +54,7 @@ export const TEAM: Member[] = [
   },
   {
     name: 'Suraj Jangde',
-    title: 'Co-Founder & CTO',
+    title: 'Co-Founder & CHRO',
     role: 'Hardware Lead',
     bio: 'Deep hardware experience, MSME-selected builder. Leads the technical vision across embedded systems and product.',
     tags: ['Hardware', 'Embedded', 'MSME Selected'],
@@ -65,7 +65,7 @@ export const TEAM: Member[] = [
   },
   {
     name: 'Vaibhav Sharma',
-    title: 'Co-Founder & CHRO',
+    title: 'Co-Founder & CTO',
     role: 'Full-Stack Developer',
     bio: 'Full-stack developer with hardware experience. 3× hackathon winner and MANAK National Award recipient.',
     tags: ['Full-Stack', 'Hardware', 'MANAK Awardee'],
