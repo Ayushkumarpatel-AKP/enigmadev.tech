@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { Team } from '@/components/Team';
+import { AboutFaces } from '@/components/AboutFaces';
 import { Reveal } from '@/components/Reveal';
 import { ScrambleText } from '@/components/ScrambleText';
 
@@ -22,6 +23,7 @@ export default function About(){
   return <main>
     <section className="relative overflow-hidden px-5 md:px-8 min-h-[100svh] flex flex-col justify-end pt-32 pb-10">
       <div className="about-glow" aria-hidden="true"/>
+      <AboutFaces/>
       <div className="relative">
         <p className="eyebrow mb-8">About the studio</p>
         <h1 className="display" data-tid="about-title">

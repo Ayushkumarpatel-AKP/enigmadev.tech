@@ -71,6 +71,8 @@ html.has-electric-cursor input, html.has-electric-cursor textarea, html.has-elec
   .world-panel:hover .world-glow { opacity:.32; }
 }
 .about-glow { position:absolute; top:-18%; right:-12%; width:62vw; height:62vw; max-width:900px; max-height:900px; border-radius:50%; background:radial-gradient(circle, rgba(210,250,117,.18), transparent 62%); filter:blur(40px); pointer-events:none; }
+.about-faces-img { opacity:.55; }
+.about-faces-halo { position:absolute; inset:-15%; z-index:-1; border-radius:50%; pointer-events:none; background:radial-gradient(circle, rgba(210,250,117,.2), transparent 60%); filter:blur(52px); }
 .page-glow { position:absolute; top:-15%; left:50%; transform:translateX(-50%); width:70vw; height:45vw; max-width:1000px; max-height:620px; border-radius:50%; background:radial-gradient(circle, rgba(210,250,117,.12), transparent 65%); filter:blur(60px); pointer-events:none; }
 /* selected-work cards — cursor spotlight, subtle tilt, focus dimming */
 .project-card { position:relative; transform:perspective(1000px) translateY(var(--lift,0px)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--s,1)); transition:transform .4s cubic-bezier(.2,.7,.2,1), opacity .5s ease, filter .5s ease, border-color .5s ease, box-shadow .5s ease; will-change:transform; }
