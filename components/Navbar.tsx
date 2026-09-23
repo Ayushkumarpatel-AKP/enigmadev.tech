@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getLenis } from '@/lib/lenis-store';
 
 const LINKS = [
   { n: '01', label: 'Work', href: '/#work' },
@@ -18,6 +19,8 @@ export function Navbar(){
   // menu khula ho to peeche scroll lock
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
+    if (open) getLenis()?.stop();
+    else getLenis()?.start();
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 

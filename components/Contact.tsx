@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { ArrowUpRight, ArrowDown } from 'lucide-react';
+import { Magnetic } from '@/components/Magnetic';
+import { getLenis } from '@/lib/lenis-store';
 
 const EASE = [0.2, 0.7, 0.2, 1] as const;
 
@@ -58,19 +60,22 @@ export function Contact() {
       </motion.p>
 
       {/* giant email CTA */}
+      <Magnetic className="mt-12">
       <motion.a
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.45, duration: 0.6, ease: EASE }}
         href="mailto:enigma.devs22@gmail.com"
-        className="group mt-12 flex items-center justify-between gap-4 bg-[#080808] px-6 py-6 text-[#f4f3ef] transition-colors duration-400 hover:bg-[#d2fa75] hover:text-black md:px-10 md:py-8"
+        data-magnetic
+        className="group flex items-center justify-between gap-4 bg-[#080808] px-6 py-6 text-[#f4f3ef] transition-colors duration-400 hover:bg-[#d2fa75] hover:text-black md:px-10 md:py-8"
       >
         <span className="truncate text-lg tracking-[-.02em] md:text-3xl">enigma.devs22@gmail.com</span>
         <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/25 transition duration-400 group-hover:rotate-45 group-hover:border-black/30 md:h-14 md:w-14">
           <ArrowUpRight size={22} />
         </span>
       </motion.a>
+      </Magnetic>
 
       {/* socials */}
       <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -102,7 +107,7 @@ export function Contact() {
       {/* bottom strip */}
       <div className="mt-16 flex flex-col justify-between gap-3 border-t border-black/15 pt-5 text-[10px] uppercase tracking-[.16em] text-black/45 md:flex-row">
         <span>Software · AI · Research · Hardware</span>
-        <a href="#top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="flex w-fit items-center gap-2 transition hover:text-black">
+        <a href="#top" onClick={(e) => { e.preventDefault(); const lenis = getLenis(); if (lenis) lenis.scrollTo(0, { duration: 1.2 }); else window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="flex w-fit items-center gap-2 transition hover:text-black">
           Back to top <ArrowDown size={13} className="rotate-180" />
         </a>
       </div>
